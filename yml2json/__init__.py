@@ -37,7 +37,7 @@ class JsonTimeEncoder(json.JSONEncoder):
 
 def pretty_output(read):
     return json.dumps(
-        yaml.load(read),
+        yaml.load(read, loader=yaml.FullLoader),
         # sort_keys=True,
         indent=4,
         separators=(',', ': '),
@@ -46,7 +46,7 @@ def pretty_output(read):
 
 def compressed_output(read):
     return json.dumps(
-        yaml.load(read),
+        yaml.load(read, laoder=yaml.FullLoader),
         cls=JsonTimeEncoder
     )
 
@@ -88,7 +88,7 @@ def main():
         with open(flags.output, 'w') as outfile:
             if flags.pretty:
                 json.dump(
-                    yaml.load(flags.input.read()),
+                    yaml.load(flags.input.read(), loader=yaml.FullLoader),
                     outfile,
                     # sort_keys=True,
                     indent=4,
@@ -97,7 +97,7 @@ def main():
                 )
             else:
                 json.dump(
-                    yaml.load(flags.input.read()),
+                    yaml.load(flags.input.read(), loader=yaml.FullLoader),
                     outfile,
                     cls=JsonTimeEncoder
                 )
