@@ -13,7 +13,7 @@ import datetime
 import dateutil.parser
 import json
 import sys
-import yaml
+import oyaml as yaml
 
 # -----------------------------------------------------------------------------
 
