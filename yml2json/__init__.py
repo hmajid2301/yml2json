@@ -37,7 +37,7 @@ class JsonTimeEncoder(json.JSONEncoder):
 
 def pretty_output(read):
     return json.dumps(
-        yaml.load(read, loader=yaml.FullLoader),
+        yaml.load(read, Loader=yaml.FullLoader),
         # sort_keys=True,
         indent=4,
         separators=(',', ': '),
@@ -52,7 +52,7 @@ def compressed_output(read):
 
 # -----------------------------------------------------------------------------
 
-def timestamp_constructor(loader, node):
+def timestamp_constructor(Loader, node):
     return dateutil.parser.parse(node.value)
 
 yaml.add_constructor(u'tag:yaml.org,2002:timestamp', timestamp_constructor)
@@ -88,7 +88,7 @@ def main():
         with open(flags.output, 'w') as outfile:
             if flags.pretty:
                 json.dump(
-                    yaml.load(flags.input.read(), loader=yaml.FullLoader),
+                    yaml.load(flags.input.read(), Loader=yaml.FullLoader),
                     outfile,
                     # sort_keys=True,
                     indent=4,
@@ -97,7 +97,7 @@ def main():
                 )
             else:
                 json.dump(
-                    yaml.load(flags.input.read(), loader=yaml.FullLoader),
+                    yaml.load(flags.input.read(), Loader=yaml.FullLoader),
                     outfile,
                     cls=JsonTimeEncoder
                 )
